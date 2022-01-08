@@ -19,17 +19,20 @@ const server = http.createServer(async(req, res)=>{
             nombre: data.results[0].name.first,
             apellido: data.results[0].name.last,
             ID: id,
-            Timestamp: time,
+            timestamp: time,
         })
         
         
-        const arreglo = JSON.stringify(_.forEach(usuarios))
+        const arregloConsola = JSON.stringify(_.defaults(usuarios))
+        console.log(chalk.blue.bgWhite(arregloConsola))
+
+        usuarios.forEach((u)=>{
+            res.write(`Nombre: ${u.nombre} - Apellido: ${u.apellido} - ID: ${u.ID} - Timestamp: ${u.timestamp} \n`)
+        })
         
-        res.write(arreglo,null);
-        console.log(chalk.blue.bgWhite(arreglo))
+        res.end();
     }
     
-res.end();
    
  
 })
